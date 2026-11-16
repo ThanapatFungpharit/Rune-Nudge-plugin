@@ -1,0 +1,28 @@
+[package]
+name = "nudge"
+version = "1.0.0"
+edition = "2024"
+description = "Reminders and follow-ups for rune-tui"
+license = "MIT"
+rust-version = "1.88"
+repository = "https://github.com/ThanapatFungpharit/Rune-Nudge-plugin"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+rune-plugin = { git = "https://github.com/ThanapatFungpharit/Rune.git", rev = "327b02b" }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+chrono = { version = "0.4.45", default-features = false, features = ["std"] }
+chrono-tz = { version = "0.10", default-features = false, features = ["std"] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[workspace]

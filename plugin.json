@@ -1,0 +1,34 @@
+{
+  "id": "nudge",
+  "name": "Nudge",
+  "version": "1.0.0",
+  "api_version": "1.0",
+  "description": "Reminders and follow-ups: /remind 2h Reply to Alice, repeating reminders, snooze, and reminders to answer a chat. Desktop alerts; never sends messages.",
+  "author": "Thanapat Fungpharit",
+  "entry": "nudge.wasm",
+  "permissions": ["notify", "storage", "read_messages"],
+  "commands": [
+    { "name": "remind", "usage": "/remind [WHEN TEXT | list | help]", "help": "make a reminder (/remind 2h Call Bob), or open the list; /remind help for everything" },
+    { "name": "followup", "usage": "/followup [WHEN] [NOTE] | done | cancel", "help": "remind me to reply to the open chat; finishes by itself when you reply" }
+  ],
+  "keys": [
+    { "id": "open", "key": "alt+r", "help": "reminders: overdue, upcoming and done" },
+    { "id": "followup", "key": "alt+f", "help": "follow up on the open chat later" }
+  ],
+  "settings": [
+    { "key": "timezone", "label": "Time zone", "type": "text", "default": "", "max_len": 64, "help": "IANA name like Asia/Bangkok or Europe/Berlin, or UTC+7; empty means UTC" },
+    { "key": "clock", "label": "Clock", "type": "choice", "default": "24-hour", "choices": ["24-hour", "12-hour"], "help": "how times are shown" },
+    { "key": "alerts", "label": "Alerts", "type": "choice", "default": "desktop + status line", "choices": ["desktop + status line", "desktop", "status line"], "help": "where a due reminder shows up (desktop alerts follow rune's notification setting)" },
+    { "key": "default_minutes", "label": "Default delay (minutes)", "type": "int", "default": 60, "min": 1, "max": 10080, "help": "when /remind is given no time" },
+    { "key": "followup_minutes", "label": "Follow-up delay (minutes)", "type": "int", "default": 120, "min": 1, "max": 10080, "help": "when /followup is given no time" },
+    { "key": "snooze_minutes", "label": "Snooze (minutes)", "type": "int", "default": 10, "min": 1, "max": 1440, "help": "what s and /remind snooze N postpone by" },
+    { "key": "morning_hour", "label": "Hour for a day without a time", "type": "int", "default": 9, "min": 0, "max": 23, "help": "\"tomorrow\", \"fri\", \"every day\" … mean this hour" },
+    { "key": "nag_minutes", "label": "Repeat overdue alerts (minutes)", "type": "int", "default": 0, "min": 0, "max": 1440, "help": "alert again about an overdue reminder every N minutes; 0 = once" },
+    { "key": "missed", "label": "Missed while rune was closed", "type": "choice", "default": "one summary", "choices": ["one summary", "one each", "list only"], "help": "how reminders that came due while rune was closed are announced at start-up" },
+    { "key": "missed_repeats", "label": "Missed repeats", "type": "choice", "default": "alert once", "choices": ["alert once", "skip silently"], "help": "a repeating reminder missed while closed: one alert, or straight to the next time" },
+    { "key": "link_chat", "label": "Link /remind to the open chat", "type": "bool", "default": true, "help": "reminders made in a chat show that chat" },
+    { "key": "followup_auto_done", "label": "Finish follow-ups when I reply", "type": "bool", "default": true, "help": "a message you send in the chat finishes its follow-up" },
+    { "key": "quote_message", "label": "Quote the last message in follow-ups", "type": "bool", "default": true, "help": "keep the last message you got in that chat with the follow-up" },
+    { "key": "keep_done", "label": "Keep done reminders", "type": "int", "default": 30, "min": 0, "max": 100, "help": "how many finished reminders stay listed; older ones are deleted" }
+  ]
+}
